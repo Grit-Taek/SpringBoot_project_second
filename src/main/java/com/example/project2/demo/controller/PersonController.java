@@ -7,6 +7,7 @@ import com.example.project2.demo.repository.PersonRepository;
 import com.example.project2.demo.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/api/person")
@@ -27,9 +28,10 @@ public class PersonController {
     }
 
     @PostMapping
-    public void postPerson(@RequestBody Person person) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void postPerson(@RequestBody PersonDto personDto) {
 
-        personService.put(person);
+        personService.put(personDto);
         log.info("person -> {} " , personRepository.findAll());
     }
 
